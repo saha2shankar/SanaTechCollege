@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <title>Sana Tech College</title>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-grad-school.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/lightbox.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+</head>
+<body>
+<!-- Header -->
+<header class="main-header clearfix" role="header">
+    <div class="logo">
+        <a href="/homepage"><em>SANA</em> Tech</a>
+    </div>
+    <a href="#menu" class="menu-link"><i class="fa fa-bars"></i></a>
+    <nav id="menu" class="main-nav" role="navigation">
+        <ul class="main-menu">
+            <li><a href="/homepage">Home</a></li>
+            <li><a href="/post">Post</a></li>
+            <li><a href="/vacancy">Recent Vacancy</a></li>
+            <li><a href="/tutorialvideo">Tutorial Video</a></li>
+            <li class="has-submenu">
+                <img class="rounded-circle me-lg-2" th:src="@{/StudentProfilepicture/{img}(img=${session.validuser.profilpic})}" alt="Profile Picture" style="width: 40px; height: 40px; object-fit: cover;">
+                <a th:href="@{/profile(studentId=${session.validuser.studentId})}" th:text="${session.validuser.firstName} + ' ' + ${session.validuser.lastName}">Profile</a>
+                <ul class="sub-menu">
+                    <li><a th:href="@{/profile(studentId=${session.validuser.studentId})}">My Profile</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="/stdlogout">Log Out</a></li>
+                    
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Content specific to this page goes here -->
+
+<!-- Scripts -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/isotope.min.js"></script>
+<script src="assets/js/owl-carousel.js"></script>
+<script src="assets/js/lightbox.js"></script>
+<script src="assets/js/tabs.js"></script>
+<script src="assets/js/video.js"></script>
+<script src="assets/js/slick-slider.js"></script>
+<script src="assets/js/custom.js"></script>
+<script>
+    // Get the current page URL
+    var currentPage = window.location.pathname;
+
+    // Get all navigation links
+    var navLinks = document.querySelectorAll('#menu .main-menu li a');
+
+    // Loop through links to find the one that matches the current page
+    navLinks.forEach(function(link) {
+        if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+        }
+    });
+</script>
+</body>
+</html>

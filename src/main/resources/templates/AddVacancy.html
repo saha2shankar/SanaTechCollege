@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<title>Add New Vacancy</title>
+</head>
+
+<body>
+	<div th:replace="~{header.html}"></div>
+	<div class="container-fluid position-relative d-flex p-0">
+		<!-- Spinner Start -->
+		<div id="spinner"
+			class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+			<div class="spinner-border text-primary"
+				style="width: 3rem; height: 3rem;" role="status">
+				<span class="sr-only">Loading...</span>
+			</div>
+		</div>
+		<!-- Spinner End -->
+
+		<!-- Sidebar Start -->
+		<div class="sidebar pe-4 pb-3">
+			<div th:replace="~{_sidebar.html}"></div>
+		</div>
+		<!-- Sidebar End -->
+
+		<!-- Content Start -->
+		<div class="content">
+			<!-- Navbar Start -->
+			<th:block th:insert="navbar"></th:block>
+			<!-- Navbar End -->
+
+			<div class="container mt-5">
+				<div class="bg-secondary rounded h-100 p-4">
+					<h2>Vacancy Registration</h2>
+					<form action="/addvacancy" method="post">
+						<!-- Course Name -->
+						<div class="mb-3">
+							<label for="courseName" class="form-label">Vacancy Post</label> <input
+								type="text" class="form-control" id="courseName" name="post"
+								required>
+						</div>
+
+						<!-- Course Code -->
+						<div class="mb-3">
+							<label for="courseCode" class="form-label">Company Name</label> <input
+								type="text" class="form-control" id="courseCode"
+								name="companyName" required>
+						</div>
+
+						<div class="mb-3">
+							<label for="courseCode" class="form-label">Company Location</label> <input
+								type="text" class="form-control" id="courseCode"
+								name="address" required>
+						</div>
+
+						<div class="mb-3">
+							<label for="courseCode" class="form-label">Company Logo link</label> <input
+								type="text" class="form-control" id="courseCode"
+								name="logolink" required>
+						</div>
+
+						<div class="mb-3">
+							<label for="courseCode" class="form-label">Job Description</label> <input
+								type="text" class="form-control" id="courseCode"
+								name="description" required>
+						</div>
+
+            <div class="md-3">
+                                <label for="gender" class="form-label">Category</label>
+                                <select class="form-control" id="gender" name="category" required>
+                                    <option value="">Select</option>
+                                    <option value="FrontendDevelope">Front-end Developer</option>
+                                    <option value="BackEndDevelopet">Back-end Developer</option>
+                                    <option value="GraphicDesign">Graphic Design</option>
+                                    <option value="databaseDesigner">Database Designer</option>
+                                    <option value="DigitalMarketing">Digital Marketing</option>
+                                    <option value="UiUxDesign">UI UX Design</option>
+                                    <option value="WebsiteDesign">Web-site Design</option>
+                                    <option value=" aidatascience">AI Data-Science</option>
+                                    <option value="others">Others</option>
+                                   
+                                </select>
+                            </div>
+
+            <div class="md-3">
+                                <label for="gender" class="form-label">Experience Level</label>
+                                <select class="form-control" id="gender" name="joblevel" required>
+                                    <option value="">Select</option>
+                                    <option value="Internship">Internship</option>
+                                    <option value="Enter Level">Enter Level</option>
+                                    <option value="Associate">Associate</option>
+                                    <option value="Mid-Senior Level">Mid-Senior Level</option>
+                                    <option value="Director">Director</option>
+                                    <option value="Executive">Executive</option>
+                                    
+                                   
+                                </select>
+                            </div>
+
+            <div class="md-3">
+                                <label for="gender" class="form-label">Job Type</label>
+                                <select class="form-control" id="gender" name="jobtime" required>
+                                    <option value="">Select</option>
+                                    <option value="Full-Time">Full-Time</option>
+                                    <option value="Part-Time">Part-Time</option>
+                                    <option value="Contract">Contract</option>
+                                    <option value="Temporary">Temporary</option>
+              
+                                   
+                                </select>
+                            </div>
+                            
+                         <div class="mb-3">
+							<label for="courseCode" class="form-label">Salary</label> <input
+								type="text" class="form-control" id="courseCode"
+								name="salary" required>
+						</div>
+						
+						<div class="mb-3">
+							<label for="courseCode" class="form-label">Deadline</label> <input
+								type="datetime-local" class="form-control" id="courseCode"
+								name="deadline" required>
+						</div>
+						
+						<div class="mb-3">
+							<label for="courseCode" class="form-label">Apply link</label> <input
+								type="text" class="form-control" id="courseCode"
+								name="applylink" required>
+						</div>
+						
+
+
+
+
+						<!-- Submit Button -->
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</form>
+				</div>
+			</div>
+
+			<!-- Footer Start -->
+			<div class="container-fluid pt-4 px-4">
+				<div th:replace="~{Footer.html}"></div>
+			</div>
+			<!-- Footer End -->
+		</div>
+		<!-- Content End -->
+
+		<!-- Back to Top -->
+		<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
+			class="bi bi-arrow-up"></i></a>
+	</div>
+
+	<script>
+        function nextStep(step) {
+            document.querySelectorAll("div[id^='step']").forEach(stepDiv => stepDiv.style.display = "none");
+            document.getElementById('step' + step).style.display = 'block';
+        }
+
+        function prevStep(step) {
+            document.querySelectorAll("div[id^='step']").forEach(stepDiv => stepDiv.style.display = "none");
+            document.getElementById('step' + step).style.display = 'block';
+        }
+    </script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="lib/chart/chart.min.js"></script>
+	<script src="lib/easing/easing.min.js"></script>
+	<script src="lib/waypoints/waypoints.min.js"></script>
+	<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+	<script src="lib/tempusdominus/js/moment.min.js"></script>
+	<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+	<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+	<!-- Template Javascript -->
+	<script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post View</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .upload-card,
+        .post-card {
+            background-color: #F5EDED;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .upload-header,
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .upload-header img,
+        .post-header img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .upload-header .user-name,
+        .post-header .user-name {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .upload-area {
+            position: relative;
+            border: 2px dashed #d3d3d3;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+        }
+
+        .upload-area:hover {
+            background-color: #eef2f7;
+        }
+
+        .upload-area input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .image-preview {
+            display: none;
+            margin-top: 20px;
+            max-height: 300px;
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .caption-area {
+            margin-top: 20px;
+        }
+
+        .caption-area textarea {
+            width: 100%;
+            resize: none;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 1em;
+            height: 100px;
+            transition: border-color 0.3s;
+        }
+
+        .caption-area textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .post-button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            font-size: 1.1em;
+        }
+
+        .post-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .post-actions .like-comment {
+            display: flex;
+            gap: 10px;
+        }
+
+        .post-actions .like-comment span {
+            cursor: pointer;
+            color: #65676b;
+        }
+
+        .post-actions .like-comment span:hover {
+            color: #1877f2;
+        }
+
+        .post-actions .share-count {
+            color: #65676b;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{_stdheader.html}"></div>
+
+    <section class="section why-us" data-section="section2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>Students Post</h2>
+                    </div>
+
+                   <!-- Upload Section -->
+ <!-- Upload Section -->
+ <p style="color: green;"><strong>[[${message}]]</strong></p>
+                    <form action="/post" method="post" enctype="multipart/form-data">
+                    
+                        <input type="hidden" th:value="${session.validuser.studentId}" name="studentDetail.studentId">
+
+                        <div class="upload-card">
+                            <div class="upload-header">
+                                <img th:src="@{/StudentProfilepicture/{img}(img=${session.validuser.profilpic})}" alt="Profile Picture">
+                                <div>
+                                    <div class="user-name" th:text="${session.validuser.firstName} + ' ' +${session.validuser.lastName}">User Name</div>
+                                </div>
+                            </div>
+                            <div class="caption-area">
+                                <textarea id="caption" placeholder="Write a caption..." name="caption"></textarea>
+                            </div>
+                            <div class="upload-area" id="upload-area">
+                                <p>Click to select a photo or drag it here</p>
+                                <input type="file" id="file-input" accept="image/*" name="postimg">
+                            </div>
+                            <img id="image-preview" class="image-preview" src="" alt="Image Preview">
+                            <button class="btn btn-primary post-button" id="post-button" disabled>Post</button>
+                        </div>
+                    </form>
+
+
+                    <!-- Post Section -->
+                    <div class="post-card" th:each="p : ${postlist}">
+                        <div class="post-header">
+                           <a th:href="@{/profile (studentId =${p.studentDetail.studentId})}"> <img th:src="@{/StudentProfilepicture/{img}(img=${p.studentDetail.profilpic})}"  alt="Profile Picture"></a>
+                            <div>
+                                <div class="user-name" th:text="${p.studentDetail.firstName}+ ' ' +${p.studentDetail.lastName}"></div>      
+                                <time class="timeago" th:datetime="${p.postTime}">July 17, 2008</time>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <p th:text="${p.caption}"> </p>
+                        </div>
+                        <img th:src="@{/StudentPost/{img}(img=${p.postimg})}"  alt="Post Image" class="post-image" >
+                        <div class="post-actions">
+                            <div class="like-comment">
+                                <span>👍 Like</span>
+                                <span>💬 Comment</span>
+                            </div>
+                            <div class="share-count">
+                                100 comments 5 shares
+                            </div>
+                        </div>
+                    </div>
+
+ 
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div th:replace="~{_stdfooter.html}"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const fileInput = document.getElementById('file-input');
+        const imagePreview = document.getElementById('image-preview');
+        const postButton = document.getElementById('post-button');
+        const captionInput = document.getElementById('caption');
+
+        fileInput.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    imagePreview.setAttribute('src', event.target.result);
+                    imagePreview.style.display = 'block';
+                    postButton.disabled = false;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        const uploadArea = document.getElementById('upload-area');
+        uploadArea.addEventListener('dragover', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            uploadArea.style.backgroundColor = '#eef2f7';
+        });
+
+        uploadArea.addEventListener('dragleave', function (event) {
+            uploadArea.style.backgroundColor = '#f9f9f9';
+        });
+
+        uploadArea.addEventListener('drop', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            uploadArea.style.backgroundColor = '#f9f9f9';
+            const file = event.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    imagePreview.setAttribute('src', event.target.result);
+                    imagePreview.style.display = 'block';
+                    postButton.disabled = false;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        captionInput.addEventListener('input', function () {
+            postButton.disabled = !fileInput.files.length || !this.value.trim();
+        });
+    </script>
+    <script src="js/jquery-3.7.1.min.js"></script>
+     <script src="js/jquery.timeago.js"></script>
+     <script>
+     jQuery(document).ready(function() {
+    	  jQuery("time.timeago").timeago();
+    	});
+     </script>
+</body>
+
+</html>

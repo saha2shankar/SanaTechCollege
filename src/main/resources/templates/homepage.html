@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+
+	<div th:replace="~{_stdheader.html}"></div>
+
+
+	<!-- ***** Main Banner Area Start ***** -->
+	<section class="section main-banner" id="top" data-section="section1">
+		<video autoplay muted loop id="bg-video">
+			<source src="assets/images/course-video.mp4" type="video/mp4" />
+		</video>
+
+		<div class="video-overlay header-text">
+			<div class="caption">
+				<h6>Sana Tech College</h6>
+				<h2>
+					<em>Your</em> Classroom
+				</h2>
+				<div class="main-button">
+					<div class="scroll-to-section">
+						<a href="/post">Go to Posts</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ***** Main Banner Area End ***** -->
+
+
+	<section class="features">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-12">
+					<div class="features-post">
+						<div class="features-content">
+							<div class="content-show">
+								<h4>
+									<i class="fa fa-book"></i>Notes
+								</h4>
+							</div>
+							<div class="content-hide">
+								<p>We’re excited to introduce a new Notes Sharing System at
+									Sana Tech! Share and access PDF notes easily. Available from 10
+									September . Enhance your study experience and collaborate with
+									peers!</p>
+								<p class="hidden-sm">We’re excited to introduce a new Notes
+									Sharing System at Sana Tech! Share and access PDF notes easily.
+									Available from 10 September . Enhance your study experience and
+									collaborate with peers!</p>
+								<div class="scroll-to-section">
+									<a href="/notes">Go to Notes page.</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-12">
+					<div class="features-post second-features">
+						<div class="features-content">
+							<div class="content-show">
+								<h4>
+									<i class="fa fa-graduation-cap"></i>Virtual Class
+								</h4>
+							</div>
+							<div class="content-hide">
+								<p>Join our Virtual Class starting October 5, 2024! Attend
+									live sessions from anywhere, access course materials online,
+									and interact with instructors. Classes begin at [Start Time].
+									Register by October 1, 2024.</p>
+								<p class="hidden-sm">Join our Virtual Class starting October
+									5, 2024! Attend live sessions from anywhere, access course
+									materials online, and interact with instructors. Classes begin
+									at [Start Time]. Register by October 1, 2024.</p>
+								<div class="scroll-to-section">
+									<a href="#">Details</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-12">
+					<div class="features-post third-features">
+						<div class="features-content">
+							<div class="content-show">
+								<h4>
+									<i class="fa fa-calendar-alt"></i>Academic Calendar
+								</h4>
+							</div>
+							<div class="content-hide">
+								<p>Curabitur id eros vehicula, tincidunt libero eu, lobortis
+									mi. In mollis eros a posuere imperdiet. Donec maximus elementum
+									ex. Cras convallis ex rhoncus, laoreet libero eu, vehicula
+									libero.</p>
+								<p class="hidden-sm">Curabitur id eros vehicula, tincidunt
+									libero eu, lobortis mi. In mollis eros a posuere imperdiet.</p>
+								<div class="scroll-to-section">
+									<a href="/calanderview">Read More</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section why-us" data-section="section2">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="section-heading">
+						<h2>News and Updates</h2>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div id='tabs'>
+						<ul>
+							<!-- Loop through the first three items in the newsList to create tabs -->
+							<li th:each="news, iterStat : ${newsList}"
+								th:if="${iterStat.index >= 0 && iterStat.index <= 2}"><a
+								th:href="'#tabs-' + ${iterStat.index + 1}"
+								th:text="${news.title}">Tab Title</a></li>
+						</ul>
+						<section class='tabs-content'>
+							<!-- Loop through the first three items in the newsList to create tab content -->
+							<article th:each="news, iterStat : ${newsList}"
+								th:if="${iterStat.index >= 0 && iterStat.index <= 2}"
+								th:id="'tabs-' + ${iterStat.index + 1}">
+								<div class="row">
+									<div class="col-md-6">
+										<img th:src="@{/Newsphoto/{img}(img=${news.photo})}"
+											th:alt="'Image for ' + ${news.title}">
+									</div>
+									<div class="col-md-6">
+										<h4 th:text="${news.title}">Title</h4>
+										<p th:text="${news.details}">Details</p>
+									</div>
+								</div>
+							</article>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section courses" data-section="section4">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="section-heading">
+						<h2>Up-comming Events</h2>
+					</div>
+				</div>
+				<div class="owl-carousel owl-theme">
+					<div th:each="e : ${eventList}">
+						<div class="item">
+							<img th:src="@{/Eventsphoto/{img}(img=${e.photopath})}"
+								alt="Course #1">
+							<div class="down-content">
+								<h4 th:text="${e.titel}">Digital Marketing</h4>
+								<p th:text="${e.details}">You can get free images and videos
+									for your websites by visiting Unsplash, Pixabay, and Pexels.</p>
+								<div class="author-image">
+									<img
+										src="https://static.vecteezy.com/system/resources/previews/021/548/095/non_2x/default-profile-picture-avatar-user-avatar-icon-person-icon-head-icon-profile-picture-icons-default-anonymous-user-male-and-female-businessman-photo-placeholder-social-network-avatar-portrait-free-vector.jpg"
+										alt="Author 1">
+								</div>
+								<div class="text-button-pay">
+									<a href="#">Register <i class="fa fa-angle-double-right"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+
+	<section class="section contact" data-section="section6">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="section-heading">
+						<h2>Let’s Keep In Touch</h2>
+					</div>
+				</div>
+				<div class="col-md-6">
+
+					<!-- Do you need a working HTML contact-form script?
+                	
+                    Please visit https://templatemo.com/contact page -->
+
+					<form id="contact" action="/contact" method="post">
+						<p>[[${emailmessage}]]</p>
+						<div class="row">
+							<div class="col-md-6">
+								<fieldset>
+									<input name="toEmail" type="email" class="form-control"
+										id="name" placeholder="Your Email Address" required="">
+								</fieldset>
+							</div>
+							<div class="col-md-6">
+								<fieldset>
+									<input name="subject" type="text" class="form-control"
+										id="email" placeholder="Subject" required="">
+								</fieldset>
+							</div>
+							<div class="col-md-12">
+								<fieldset>
+									<textarea name="message" rows="6" class="form-control"
+										id="message" placeholder="Your message..." required=""></textarea>
+								</fieldset>
+							</div>
+							<div class="col-md-12">
+								<p>[[${emailmessage}]]</p>
+								<fieldset>
+									<button type="submit" id="form-submit" class="button">Send
+										Message Now</button>
+								</fieldset>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-md-6">
+					<div id="map">
+
+						<iframe
+							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.8345317845483!2d85.2910323811218!3d27.691508614803503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb184323a63889%3A0xf604dc7a2eefa29c!2sKuleshwor%20Tinkune!5e0!3m2!1sen!2snp!4v1725163003936!5m2!1sen!2snp"
+							width="100%" height="422px" frameborder="0" style="border: 0"
+							allowfullscreen></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<p>
+						<i class="fa fa-copyright"></i> Copyright 2020 by Sana Tech
+						College | Design: <a href="" rel="sponsored" target="_parent">Harishankar
+							Sah</a><br> Distributed By: <a href="" rel="sponsored"
+							target="_blank">Harishankar Sah</a>
+
+					</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/isotope.min.js"></script>
+	<script src="assets/js/owl-carousel.js"></script>
+	<script src="assets/js/lightbox.js"></script>
+	<script src="assets/js/tabs.js"></script>
+	<script src="assets/js/video.js"></script>
+	<script src="assets/js/slick-slider.js"></script>
+	<script src="assets/js/custom.js"></script>
+</body>
+</html>

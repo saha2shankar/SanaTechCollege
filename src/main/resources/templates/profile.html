@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Profile</title>
+<style>
+body {
+	background-color: #f0f2f5;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.upload-card, .post-card {
+	background-color: #F5EDED;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	margin: 20px auto;
+	max-width: 600px;
+	padding: 20px;
+}
+
+.upload-header, .post-header {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.upload-header img, .post-header img {
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	margin-right: 10px;
+}
+
+.upload-header .user-name, .post-header .user-name {
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+.upload-area {
+	position: relative;
+	border: 2px dashed #d3d3d3;
+	border-radius: 8px;
+	padding: 30px;
+	text-align: center;
+	cursor: pointer;
+	background-color: #f9f9f9;
+	transition: background-color 0.3s;
+}
+
+.upload-area:hover {
+	background-color: #eef2f7;
+}
+
+.upload-area input[type="file"] {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.image-preview {
+	display: none;
+	margin-top: 20px;
+	max-height: 300px;
+	max-width: 100%;
+	border-radius: 8px;
+}
+
+.caption-area {
+	margin-top: 20px;
+}
+
+.caption-area textarea {
+	width: 100%;
+	resize: none;
+	border-radius: 8px;
+	border: 1px solid #ccc;
+	padding: 10px;
+	font-size: 1em;
+	height: 100px;
+	transition: border-color 0.3s;
+}
+
+.caption-area textarea:focus {
+	border-color: #007bff;
+	outline: none;
+}
+
+.post-button {
+	margin-top: 20px;
+	width: 100%;
+	padding: 10px;
+	font-size: 1.1em;
+}
+
+.post-image {
+	width: 100%;
+	border-radius: 8px;
+	margin-bottom: 10px;
+}
+
+.post-actions {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.post-actions .like-comment {
+	display: flex;
+	gap: 10px;
+}
+
+.post-actions .like-comment span {
+	cursor: pointer;
+	color: #65676b;
+}
+
+.post-actions .like-comment span:hover {
+	color: #1877f2;
+}
+
+.post-actions .share-count {
+	color: #65676b;
+	font-size: 12px;
+}/* Base Styles */
+.section-container {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-width: 600px;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+     /* Centering the container */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid;
+}
+
+.section-details dt {
+    font-weight: bold;
+    padding-top: 10px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.section-details dd {
+    margin: 0;
+    padding-left: 15px;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    border-left: 3px solid;
+}
+
+/* Student Address Section */
+.student-address {
+    background-color: #000; /* Black background */
+}
+
+.address-title {
+    border-color: #007bff; /* Blue border */
+}
+
+.address-details dt, .address-details dd {
+    color: #777; /* Gray text */
+    border-color: #007bff; /* Blue line */
+}
+
+/* Parent Info Section */
+.student-parent {
+    background-color: #000; /* Dark gray background */
+}
+
+.parent-title {
+    border-color: #ff4500; /* Orange border */
+}
+
+.parent-details dt, .parent-details dd {
+    color: #aaa; /* Light gray text */
+    border-color: #ff4500; /* Orange line */
+}
+
+/* Course Info Section */
+.student-course {
+    background-color: #000; /* Medium gray background */
+}
+
+.course-title {
+    border-color: #32cd32; /* Lime green border */
+}
+
+.course-details dt, .course-details dd {
+    color: #ccc; /* Light gray text */
+    border-color: #32cd32; /* Lime green line */
+}
+
+/* Enrollment Details Section */
+.student-enrollment {
+    background-color: #000; /* Darker gray background */
+}
+
+.enrollment-title {
+    border-color: #1e90ff; /* Dodger blue border */
+}
+
+.enrollment-details dt, .enrollment-details dd {
+    color: #ddd; /* Very light gray text */
+    border-color: #1e90ff; /* Dodger blue line */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .section-container {
+        padding: 15px;
+    }
+
+    .section-title {
+        font-size: 16px;
+    }
+
+    .section-details dt, .section-details dd {
+        font-size: 13px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+	<div th:replace="~{_profileCSSandJavaScript.html}"></div>
+	<!-- Header Section -->
+	<header class="header">
+		<div class="profile-pic-container">
+			<img
+				th:src="@{/StudentProfilepicture/{img}(img=${student.profilpic})}"
+				alt="Student Profile" class="profile-pic">
+		</div>
+		<h1 class="student-name"
+			th:text="${student.firstName} + ' ' +${student.lastName}"></h1>
+		<p th:text="${student.course.courseName}"></p>
+	</header>
+
+	<div class="bg-secondary rounded h-100 p-4">
+		<ul class="nav nav-pills justify-content-center mb-3" id="pills-tab"
+			role="tablist">
+			<li class="nav-item" role="presentation">
+				<button class="nav-link active" id="pills-home-tab"
+					data-bs-toggle="pill" data-bs-target="#pills-home" type="button"
+					role="tab" aria-controls="pills-home" aria-selected="true">Post</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="pills-profile-tab"
+					data-bs-toggle="pill" data-bs-target="#pills-profile" type="button"
+					role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="pills-contact-tab"
+					data-bs-toggle="pill" data-bs-target="#pills-contact" type="button"
+					role="tab" aria-controls="pills-contact" aria-selected="false">Contact</button>
+			</li>
+		</ul>
+		<div class="tab-content" id="pills-tabContent">
+			<div class="tab-pane fade show active" id="pills-home"
+				role="tabpanel" aria-labelledby="pills-home-tab">
+				
+				<!-- Your content here -->
+				<!-- Post Section -->
+				<div th:each="post : ${student.stdpost}" class="post-card">
+					<div class="post-header">
+						<img
+							th:src="@{/StudentProfilepicture/{img}(img=${student.profilpic})}"
+							alt="Profile Picture">
+						<div>
+							<div class="user-name"
+								th:text="${student.firstName} + ' ' + ${student.lastName}"></div>
+							<time class="timeago" th:datetime="${post.postTime}">
+							</time>
+						</div>
+					</div>
+					<div class="post-content">
+						<p th:text="${post.caption}"></p>
+					</div>
+					<img th:src="@{/StudentPost/{img}(img=${post.postimg})}"
+						alt="Post Image" class="post-image">
+					<div class="post-actions">
+						<div class="like-comment">
+							<span>👍 Like</span> <span>💬 Comment</span>
+						</div>
+						<div class="share-count">100 comments 5 shares</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="tab-pane fade" id="pills-profile" role="tabpanel"
+				aria-labelledby="pills-profile-tab">
+				<div class="bg-secondary rounded h-100 p-4">
+				
+    <div class="student-address section-container">
+        <h6 class="address-title section-title">Student Full Address</h6>
+        <div class="row address-details section-details">
+            <div class="col-md-6">
+                <dt>Street Address</dt>
+                <dd>[[${student.studentsaddress.streetAddress}]]</dd>
+            </div>
+            <div class="col-md-6">
+                <dt>City</dt>
+                <dd>[[${student.studentsaddress.city}]]</dd>
+            </div>
+        </div>
+        <div class="row address-details section-details">
+            <div class="col-md-6">
+                <dt>State</dt>
+                <dd>[[${student.studentsaddress.state}]]</dd>
+            </div>
+            <div class="col-md-6">
+                <dt>Zip Code</dt>
+                <dd>[[${student.studentsaddress.zipCode}]]</dd>
+            </div>
+        </div>
+        <div class="row address-details section-details">
+            <div class="col-md-12">
+                <dt>Country</dt>
+                <dd>[[${student.studentsaddress.country}]]</dd>
+            </div>
+        </div>
+    </div>
+
+    <div class="student-parent section-container">
+        <h6 class="parent-title section-title">Parent Info</h6>
+        <div class="row parent-details section-details">
+            <div class="col-md-6">
+                <dt>First Name</dt>
+                <dd>[[${student.parent.parentFirstName}]]</dd>
+            </div>
+            <div class="col-md-6">
+                <dt>Last Name</dt>
+                <dd>[[${student.parent.parentLastName}]]</dd>
+            </div>
+        </div>
+        <div class="row parent-details section-details">
+            <div class="col-md-6">
+                <dt>Relationship To Student</dt>
+                <dd>[[${student.parent.relationshipToStudent}]]</dd>
+            </div>
+            <div class="col-md-6">
+                <dt>Parent Phone Number</dt>
+                <dd>[[${student.parent.parentPhoneNumber}]]</dd>
+            </div>
+        </div>
+        <div class="row parent-details section-details">
+            <div class="col-md-12">
+                <dt>Email Address</dt>
+                <dd>[[${student.parent.parentEmail}]]</dd>
+            </div>
+        </div>
+    </div>
+
+    <div class="student-course section-container">
+        <h6 class="course-title section-title">Course Info</h6>
+        <div class="row course-details section-details">
+            <div class="col-md-6">
+                <dt>Course Title</dt>
+                <dd>[[${student.course.courseName}]]</dd>
+            </div>
+            <div class="col-md-6">
+                <dt>Course Code</dt>
+                <dd>[[${student.course.courseCode}]]</dd>
+            </div>
+        </div>
+        <div class="row course-details section-details">
+            <div class="col-md-6">
+                <dt>Department Head</dt>
+                <dd>[[${student.course.CourseHead}]]</dd>
+            </div>
+            <div class="col-md-6">
+                <dt>Department Phone number</dt>
+                <dd>[[${student.course.HeadMobile}]]</dd>
+            </div>
+        </div>
+    </div>
+
+    <div class="student-enrollment section-container">
+        <h6 class="enrollment-title section-title">Enrollment Details</h6>
+        <div class="row enrollment-details section-details">
+            <div class="col-md-6">
+                <dt>Join Date</dt>
+                <dd>[[${student.enrollment.enrollmentDate}]]</dd>
+            </div>
+            <div class="col-md-6">
+                <dt>Account Status</dt>
+                <dd>[[${student.enrollment.status}]]</dd>
+            </div>
+        </div>
+    </div>
+</div>
+
+			</div>
+			
+				 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+				     <div class="student-course section-container">
+				     <div class="">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">Get Touch with College !</h6>
+                            <form action="/contact" method="post">
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="floatingInput" name="toEmail"
+                                    placeholder="name@example.com">
+                                <label for="floatingInput">Email address</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingPassword" name="subject"
+                                    placeholder="Subject">
+                                <label for="floatingPassword">Subject</label>
+                            </div>
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a message here" name="message"
+                                    id="floatingTextarea" style="height: 150px;"></textarea>
+                                <label for="floatingTextarea">Comments</label>
+                            </div>
+                            <div class="col-md-12">
+                <p>[[${emailmessage}]]</p>
+                <fieldset>
+                  <button type="submit" id="form-submit" class="button" style="color: white; background-color: red">Send Message Now</button>
+                </fieldset>
+              </div>
+                            
+                        </div>
+                       
+                    </div>
+                      
+				 </div>
+				   </form>
+				 </div>
+			
+		
+		</div>
+	</div>
+
+ <script src="js/jquery-3.7.1.min.js"></script>
+     <script src="js/jquery.timeago.js"></script>
+     <script>
+     jQuery(document).ready(function() {
+    	  jQuery("time.timeago").timeago();
+    	});
+     </script>
+</body>
+
+</html>

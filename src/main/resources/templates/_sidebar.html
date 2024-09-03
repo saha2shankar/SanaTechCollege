@@ -1,0 +1,111 @@
+<nav class="navbar bg-secondary navbar-dark">
+    <a href="index.html" class="navbar-brand mx-4 mb-3">
+        <h3 class="text-primary">
+           SANA TECH
+        </h3>
+    </a>
+    <div class="d-flex align-items-center ms-4 mb-4">
+        <div class="position-relative">
+            <img class="rounded-circle" src="https://www.shahroodut.ac.ir/en/as/asimages/User-Default.jpg" alt="User Image" style="width: 40px; height: 40px;">
+            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+        </div>
+        <div class="ms-3">
+            <h6 class="mb-0">[[${session.validuser.username}]]</h6>
+            <span>Admin</span>
+        </div>
+    </div>
+    <div class="navbar-nav w-100">
+        <a href="/admindashboard" class="nav-item nav-link">
+            <i class="fa fa-tachometer-alt me-2"></i>Dashboard
+        </a>
+        <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="fas fa-user-graduate me-2"></i>Student
+            </a>
+            <div class="dropdown-menu bg-transparent border-0">
+                <a href="/studentadd" class="dropdown-item">Add New Students</a>
+                <a href="/allstudents" class="dropdown-item">View Student</a>
+            </div>
+        </div>
+        <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="fas fa-book-open me-2"></i>Course
+            </a>
+            <div class="dropdown-menu bg-transparent border-0">
+                <a href="/courseadd" class="dropdown-item">Add New Course</a>
+                <a href="/getallcourse" class="dropdown-item">View All Courses</a>
+            </div>
+        </div>
+        <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <i  class="fas fa-video me-2"></i>Tutorial VIdeo
+            </a>
+            <div class="dropdown-menu bg-transparent border-0">
+                <a href="/addtutorialvideo" class="dropdown-item">Add Tutorial Video</a>
+                <a href="/getallTutorialVideo" class="dropdown-item">View All Tutorial Video</a>
+            </div>
+        </div>
+        
+        <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="fas fa-briefcase me-2"></i>Vacancy
+            </a>
+            <div class="dropdown-menu bg-transparent border-0">
+                <a href="/addvacancy" class="dropdown-item">Add New Vacancy</a>
+                <a href="/getallvacancy" class="dropdown-item">View All Vacancy</a>
+            </div>
+        </div>
+        <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="fas fa-calendar-alt me-2"></i>Events
+            </a>
+            <div class="dropdown-menu bg-transparent border-0">
+                <a href="/eventadd" class="dropdown-item">Add New Event</a>
+                <a href="/getallEvents" class="dropdown-item">View All Events</a>
+            </div>
+        </div>
+        
+         <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="fas fa-newspaper me-2"></i>News
+            </a>
+            <div class="dropdown-menu bg-transparent border-0">
+                <a href="/addnews" class="dropdown-item">Add News Updates</a>
+                <a href="/getallNews" class="dropdown-item">View All Updates</a>
+            </div>
+        </div>
+        
+        
+         <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="fa fa-book me-2"></i>Notes
+            </a>
+            <div class="dropdown-menu bg-transparent border-0">
+                <a href="/addNotes" class="dropdown-item">Add Notes</a>
+                <a href="/viewAllNotes" class="dropdown-item">View All Notes</a>
+            </div>
+        </div>
+        
+    </div>
+</nav>
+
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var currentPage = window.location.pathname;
+    var navLinks = document.querySelectorAll('.navbar-nav a.nav-link, .navbar-nav .dropdown-menu a');
+
+    navLinks.forEach(function(link) {
+        if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+            
+            var parentDropdown = link.closest('.nav-item.dropdown');
+            if (parentDropdown) {
+                parentDropdown.querySelector('.nav-link.dropdown-toggle').classList.add('active');
+            }
+        }
+    });
+});
+</script>
+
